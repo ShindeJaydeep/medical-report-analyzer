@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Medical Report Analyzer</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Blood test reader</p>
+        <h1>Medical Report Analyzer</h1>
+      </div>
+      <div class="status-pill" id="engineStatus">Ready</div>
+    </header>
+
+    <main class="app-layout">
+      <section class="input-band" aria-labelledby="uploadTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Upload</p>
+            <h2 id="uploadTitle">Report input</h2>
+          </div>
+          <div class="segmented" role="group" aria-label="Input actions">
+            <button type="button" id="sampleBtn">Sample</button>
+            <button type="button" id="resetBtn">Reset</button>
+          </div>
+        </div>
+
+        <div class="input-grid">
+          <div class="drop-zone" id="dropZone" tabindex="0">
+            <input id="reportFile" type="file" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png">
+            <div class="file-symbol" aria-hidden="true">
+              <span></span>
+            </div>
+            <strong>Drop a PDF, JPG, or PNG report</strong>
+            <small>PDF text extraction and image OCR load in the browser when available.</small>
+            <button type="button" id="browseBtn">Choose file</button>
+          </div>
+
+          <div class="text-panel">
+            <label for="manualText">Extracted or pasted report text</label>
+            <textarea id="manualText" spellcheck="false" placeholder="Hemoglobin 10.2 g/dL 12-15&#10;WBC 12,500 /uL 4,000-11,000&#10;Vitamin D 15 ng/mL 30-100"></textarea>
+            <div class="input-actions">
+              <button type="button" class="primary" id="analyzeBtn">Analyze report</button>
+              <button type="button" id="clearTextBtn">Clear text</button>
+            </div>
+          </div>
+        </div>
+
+        <figure class="image-preview is-hidden" id="imagePreviewWrap">
+          <img id="imagePreview" alt="Uploaded report preview">
+          <figcaption id="imageCaption">Image loaded</figcaption>
+        </figure>
+      </section>
+
+      <section class="summary-band" aria-labelledby="summaryTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Review</p>
+            <h2 id="summaryTitle">Health summary</h2>
+          </div>
+          <button type="button" class="primary" id="downloadPdfBtn">Download PDF</button>
+        </div>
+
+        <div class="summary-grid" id="summaryGrid"></div>
+        <div class="notice" id="summaryText">
+          Upload a report or use the sample to generate a plain-language summary.
+        </div>
+      </section>
+
+      <section class="results-band" aria-label="Detected blood values">
+        <div class="split-layout">
+          <div>
+            <div class="section-heading compact">
+              <div>
+                <p class="eyebrow">Flags</p>
+                <h2>Abnormal values</h2>
+              </div>
+            </div>
+            <div class="flag-list" id="flagList"></div>
+          </div>
+
+          <div>
+            <div class="section-heading compact">
+              <div>
+                <p class="eyebrow">Values</p>
+                <h2>Extracted table</h2>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Test</th>
+                    <th>Result</th>
+                    <th>Normal range</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="resultsTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="details-band" aria-labelledby="detailsTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Explain</p>
+            <h2 id="detailsTitle">Plain-language findings</h2>
+          </div>
+        </div>
+        <div class="details-grid" id="detailsGrid"></div>
+      </section>
+
+      <section class="charts-band" aria-labelledby="chartsTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Charts</p>
+            <h2 id="chartsTitle">Your values vs normal range</h2>
+          </div>
+        </div>
+        <div class="charts-grid" id="chartsGrid"></div>
+      </section>
+    </main>
+
+    <footer class="footer-note">
+      Educational prototype only. It does not diagnose, prescribe, or replace a clinician. Reference ranges vary by lab, age, sex, pregnancy status, and medical history.
+    </footer>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
